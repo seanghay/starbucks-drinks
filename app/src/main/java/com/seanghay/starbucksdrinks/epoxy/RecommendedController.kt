@@ -47,6 +47,8 @@ class RecommendedController : EpoxyController(
     }
 
     override fun buildModels() {
+
+
         if (_featuredModels.isNotEmpty()) {
             overline {
                 id("featured:overline")
@@ -131,6 +133,15 @@ class RecommendedController : EpoxyController(
         }
 
 
+        overline {
+            id("cards:overline")
+            value("Your cards")
+        }
+
+        failureModelView {
+            id("failure")
+        }
+
 
         overline {
             id("overline-3")
@@ -155,13 +166,36 @@ class RecommendedController : EpoxyController(
         }
 
         if (_allDrinks.isNotEmpty()) {
-            for (item in _allDrinks) {
-                card {
-                    id("all:${item.productNumber}")
-                    imageUrl(item.imageUrlOrNull)
-                    title(item.name)
-                    subtitle(item.formCode)
+            for (chunked in _allDrinks.chunked(5).withIndex()) {
+                val isCarousel = chunked.index % 2 == 0
+
+                if (isCarousel) {
+                    for (item in chunked.value) {
+                        card {
+                            id("all:${item.productNumber}")
+                            imageUrl(item.imageUrlOrNull)
+                            title(item.name)
+                            subtitle(item.formCode)
+                        }
+                    }
+                } else {
+                    val chuckedModels = chunked.value.map {
+                        LargeHeroModel_().id("all:chunked:item:" + it.productNumber)
+                            .imageUrl(it.imageUrlOrNull)
+                    }
+
+                    overline {
+                        id("all:carousel:overline:${chunked.index}")
+                        value("Related Products")
+                    }
+                    carousel {
+                        id("all:carousel:${chunked.index}")
+                        models(chuckedModels)
+                        numViewsToShowOnScreen(3.2f)
+                    }
                 }
+
+
             }
         } else loaderModelView { id("all:loader") }
 

@@ -4,38 +4,79 @@ import android.graphics.Color
 import com.airbnb.epoxy.EpoxyAsyncUtil
 import com.airbnb.epoxy.EpoxyController
 import com.airbnb.epoxy.carousel
+import com.seanghay.starbucksdrinks.data.ProductItem
+import java.util.concurrent.CopyOnWriteArrayList
 
 class RecommendedController : EpoxyController(
     EpoxyAsyncUtil.getAsyncBackgroundHandler(),
     EpoxyAsyncUtil.getAsyncBackgroundHandler()
 ) {
 
-    private val featuredModels = (0..10).map {
-        LargeHeroModel_().id("large-$it")
-            .imageUrl("https://globalassets.starbucks.com/assets/1039a0883ad548b69c5f93b9f76dbae2.jpg?impolicy=1by1_wide_1242")
+    private val _featuredModels: CopyOnWriteArrayList<LargeHeroModel_> = CopyOnWriteArrayList()
+    private val _popularDrinks: CopyOnWriteArrayList<ProductItem> = CopyOnWriteArrayList()
+    private val _signatureDrinks: CopyOnWriteArrayList<ProductItem> = CopyOnWriteArrayList()
+    private val _allDrinks: CopyOnWriteArrayList<ProductItem> = CopyOnWriteArrayList()
+
+    fun submitAll(items: Collection<ProductItem>) {
+        _allDrinks.clear()
+        _allDrinks.addAll(items)
+        requestModelBuild()
+    }
+
+
+    fun submitSignatureDrinks(items: Collection<ProductItem>) {
+        _signatureDrinks.clear()
+        _signatureDrinks.addAll(items)
+        requestModelBuild()
+    }
+
+
+    fun submitPopularDrinks(items: Collection<ProductItem>) {
+        _popularDrinks.clear()
+        _popularDrinks.addAll(items)
+        requestModelBuild()
+    }
+
+    fun submitFeaturedProducts(items: Collection<ProductItem>) {
+        _featuredModels.clear()
+        _featuredModels.addAll(items.map {
+            LargeHeroModel_().id("featured:" + it.productNumber)
+                .imageUrl(it.imageUrlOrNull)
+        })
+        requestModelBuild()
     }
 
     override fun buildModels() {
-        overline {
-            id("overline-0")
-            value("Featured Drinks")
-        }
+        if (_featuredModels.isNotEmpty()) {
+            overline {
+                id("featured:overline")
+                value("Featured Drinks")
+            }
 
-        carousel {
-            id("carousel")
-            models(featuredModels)
-            numViewsToShowOnScreen(1.4f)
-        }
+            carousel {
+                id("carousel")
+                models(_featuredModels)
+                numViewsToShowOnScreen(2.1f)
+            }
+
+        } else loaderModelView { id("featured:loader") }
 
         overline {
-            id("overline-1")
+            id("popular-drink:overline")
             value("Popular Drinks")
         }
-        repeat(3) {
-            card {
-                id(it)
+
+        if (_popularDrinks.isNotEmpty()) {
+            for (_popularDrink in _popularDrinks) {
+                card {
+                    id("popular-drink:${_popularDrink.productNumber}")
+                    imageUrl(_popularDrink.imageUrlOrNull)
+                    title(_popularDrink.name)
+                    subtitle(_popularDrink.formCode)
+                }
             }
-        }
+        } else loaderModelView { id("popular-drink:loader") }
+
 
         wideButton {
             id("button-more")
@@ -56,14 +97,21 @@ class RecommendedController : EpoxyController(
         }
 
         overline {
-            id("overline-3")
+            id("signature:overline")
             value("Signature Drinks")
         }
-        repeat(3) {
-            card {
-                id(it)
+
+        if (_signatureDrinks.isNotEmpty()) {
+            for (item in _signatureDrinks) {
+                card {
+                    id("signature:${item.productNumber}")
+                    imageUrl(item.imageUrlOrNull)
+                    title(item.name)
+                    subtitle(item.formCode)
+                }
             }
-        }
+        } else loaderModelView { id("signature:loader") }
+
 
         overline {
             id("overline-3")
@@ -83,17 +131,6 @@ class RecommendedController : EpoxyController(
         }
 
 
-        overline {
-            id("overline-11")
-            value("Food")
-        }
-
-        carousel {
-            id("carousel-2")
-            models(featuredModels)
-            numViewsToShowOnScreen(2.5f)
-        }
-
 
         overline {
             id("overline-3")
@@ -112,9 +149,21 @@ class RecommendedController : EpoxyController(
             backgroundColor(Color.parseColor("#e1251b"))
         }
 
-
-        loaderModelView {
-            id("loader")
+        overline {
+            id("all:overline")
+            value("All Products")
         }
+
+        if (_allDrinks.isNotEmpty()) {
+            for (item in _allDrinks) {
+                card {
+                    id("all:${item.productNumber}")
+                    imageUrl(item.imageUrlOrNull)
+                    title(item.name)
+                    subtitle(item.formCode)
+                }
+            }
+        } else loaderModelView { id("all:loader") }
+
     }
 }

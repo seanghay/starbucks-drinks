@@ -22,11 +22,7 @@ class MainActivity : StarbucksActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        Carousel.setDefaultGlobalSnapHelperFactory(object : Carousel.SnapHelperFactory() {
-            override fun buildSnapHelper(context: Context?): SnapHelper {
-                return PagerSnapHelper()
-            }
-        })
+        Carousel.setDefaultGlobalSnapHelperFactory(null)
 
         replaceFragmentOfTag("recommended") { RecommendedFragment.newInstance() }
 

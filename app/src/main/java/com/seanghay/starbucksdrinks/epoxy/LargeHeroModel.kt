@@ -20,6 +20,7 @@ abstract class LargeHeroModel : EpoxyModelWithHolder<LargeHeroModel.LargeHeroHol
         Glide.with(imageView).load(imageUrl)
             .fitCenter()
             .centerCrop()
+            .placeholder(R.drawable.placeholder)
             .into(imageView)
     }
 

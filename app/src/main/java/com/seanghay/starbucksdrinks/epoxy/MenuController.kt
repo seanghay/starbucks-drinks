@@ -2,23 +2,25 @@ package com.seanghay.starbucksdrinks.epoxy
 
 import com.airbnb.epoxy.EpoxyAsyncUtil
 import com.airbnb.epoxy.EpoxyController
+import com.seanghay.resultof.ResultOf
+import com.seanghay.starbucksdrinks.data.MenuResponse
 
-class MenuController: EpoxyController(EpoxyAsyncUtil.getAsyncBackgroundHandler(), EpoxyAsyncUtil.getAsyncBackgroundHandler()) {
+class MenuController : EpoxyController(
+    EpoxyAsyncUtil.getAsyncBackgroundHandler(),
+    EpoxyAsyncUtil.getAsyncBackgroundHandler()
+) {
+
+    private var _currentResult: ResultOf<MenuResponse>? = null
 
     override fun buildModels() {
-        overline {
-            id("overline-1")
-            value("Popular Drinks")
+        failureModelView {
+            id("failure")
         }
-        repeat(3) {
-            card {
-                id(it)
-            }
-        }
+    }
 
-        loaderModelView {
-            id("loader02")
-        }
+
+    fun submit(result: ResultOf<MenuResponse>) {
+
     }
 
 }

@@ -5,13 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import com.seanghay.resultof.onFailure
+import com.seanghay.resultof.onSuccess
 import com.seanghay.starbucksdrinks.databinding.FragmentMenuBinding
 import com.seanghay.starbucksdrinks.epoxy.MenuController
 
-class MenuFragment: Fragment() {
+class MenuFragment : Fragment() {
 
     private var _binding: FragmentMenuBinding? = null
     private val binding: FragmentMenuBinding get() = _binding!!
+
+    private val viewModel: MenuViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,6 +31,7 @@ class MenuFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val controller = MenuController()
         binding.epoxyRecyclerView.setControllerAndBuildModels(controller)
+        viewModel.categories.observe(viewLifecycleOwner, controller::submit)
     }
 
     override fun onDestroyView() {

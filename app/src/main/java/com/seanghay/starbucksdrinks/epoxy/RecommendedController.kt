@@ -11,7 +11,8 @@ class RecommendedController : EpoxyController(
 ) {
 
     private val featuredModels = (0..10).map {
-        LargeHeroModel_().id("large-$it").imageUrl("https://globalassets.starbucks.com/assets/1039a0883ad548b69c5f93b9f76dbae2.jpg?impolicy=1by1_wide_1242")
+        LargeHeroModel_().id("large-$it")
+            .imageUrl("https://globalassets.starbucks.com/assets/1039a0883ad548b69c5f93b9f76dbae2.jpg?impolicy=1by1_wide_1242")
     }
 
     override fun buildModels() {

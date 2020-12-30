@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="18dp"
+    android:theme="@style/ThemeOverlay.MaterialComponents.Dark"
+    app:cardBackgroundColor="?attr/colorPrimary"
     app:cardCornerRadius="0dp"
     app:cardElevation="0dp">
 
@@ -13,12 +14,13 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/image_view"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
             android:layout_margin="14dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+
             app:srcCompat="@drawable/ic_cup" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -26,14 +28,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="14dp"
             android:text="Oops!"
-            android:textColor="?attr/colorPrimary"
+            android:textAlignment="center"
+            android:textColor="?attr/colorOnPrimary"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/material_text_view_subtitle"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/image_view"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image_view"
             app:layout_constraintVertical_chainStyle="packed" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -41,12 +45,32 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-
+            android:layout_marginBottom="20dp"
             android:text="Something went wrong please retry!"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@id/button_retry"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/material_text_view_title" />
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_retry"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="Retry"
+            app:backgroundTint="@color/retry_button_color"
+            app:cornerRadius="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/image_view"
-            app:layout_constraintTop_toBottomOf="@id/material_text_view_title" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/material_text_view_subtitle" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.seanghay.starbucksdrinks.epoxy.FailureModelView>

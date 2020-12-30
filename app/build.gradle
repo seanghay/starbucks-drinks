@@ -64,4 +64,5 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1'
     implementation("com.seanghay:resultof:1.0.0")
+    implementation 'com.github.seanghay:statusbar:1.0.1'
 }

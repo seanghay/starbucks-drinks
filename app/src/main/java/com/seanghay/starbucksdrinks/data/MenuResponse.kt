@@ -22,7 +22,14 @@ data class ProductItem(
     val assets: ProductAssets? = null,
     val sizes: List<ProductSize>? = null,
     val uri: String? = null,
-)
+) {
+
+    val imageUrlOrNull: String?
+        get() {
+            return assets?.thumbnail?.large?.uri ?: assets?.fullSize?.uri
+            ?: assets?.masterImage?.uri
+        }
+}
 
 data class ProductSize(
     val sizeCode: String? = null

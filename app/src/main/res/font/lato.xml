@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <font
+        android:fontStyle="normal"
+        android:font="@font/lato_bold"
+        android:fontWeight="700"
+        app:fontStyle="normal"
+        app:font="@font/lato_bold"
+        app:fontWeight="700" />
+
+
+    <font
+        android:fontStyle="italic"
+        android:font="@font/lato_bold_italic"
+        android:fontWeight="700"
+        app:fontStyle="italic"
+        app:font="@font/lato_bold_italic"
+        app:fontWeight="700" />
+
+
+    <font
+        android:fontStyle="italic"
+        android:font="@font/lato_italic"
+        android:fontWeight="400"
+        app:fontStyle="italic"
+        app:font="@font/lato_italic"
+        app:fontWeight="400" />
+
+
+    <font
+        android:fontStyle="normal"
+        android:font="@font/lato_light"
+        android:fontWeight="300"
+        app:fontStyle="normal"
+        app:font="@font/lato_light"
+        app:fontWeight="300" />
+
+
+    <font
+        android:fontStyle="italic"
+        android:font="@font/lato_light_italic"
+        android:fontWeight="300"
+        app:fontStyle="italic"
+        app:font="@font/lato_light_italic"
+        app:fontWeight="300" />
+
+
+    <font
+        android:fontStyle="normal"
+        android:font="@font/lato_regular"
+        android:fontWeight="400"
+        app:fontStyle="normal"
+        app:font="@font/lato_regular"
+        app:fontWeight="400" />
+
+
+</font-family>

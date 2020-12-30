@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="starbucks_green">#008248</color>
+    <color name="starbucks_dark_green">#027140</color>
+    <color name="starbucks_gold">#c0a65c</color>
+    <color name="starbucks_dark_gold">#AC9451</color>
+    <color name="starbucks_surface">#262626</color>
+    <color name="starbucks_grey">#eeeeee</color>
+
+</resources>
+

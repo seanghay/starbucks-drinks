@@ -27,13 +27,13 @@ class MenuRepository(
             memoryCache = it
             return it
         }
-        val remote = service.menu()
-        remote.menus?.let {
+
+        service.menu().menus?.let {
             memoryCache = it
             storeFile(it)
-
             return it
         }
+
         return emptyList()
     }
 

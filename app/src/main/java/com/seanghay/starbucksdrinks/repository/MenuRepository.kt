@@ -18,21 +18,21 @@ class MenuRepository(
     private var memoryCache: List<ProductCategory>? = null
 
     suspend fun fetchOrCache(): List<ProductCategory> {
-        if (memoryCache != null) {
-            return memoryCache!!
+        memoryCache?.let {
+            return it
         }
 
         val cached = loadFromFile()
-        if (cached != null) {
-            memoryCache = cached
-            return cached
+        cached?.let {
+            memoryCache = it
+            return it
         }
         val remote = service.menu()
-        if (remote.menus != null) {
-            memoryCache = remote.menus
-            storeFile(remote.menus)
+        remote.menus?.let {
+            memoryCache = it
+            storeFile(it)
 
-            return remote.menus
+            return it
         }
         return emptyList()
     }

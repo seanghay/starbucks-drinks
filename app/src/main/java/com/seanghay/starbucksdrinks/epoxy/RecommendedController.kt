@@ -4,6 +4,8 @@ import android.graphics.Color
 import com.airbnb.epoxy.EpoxyAsyncUtil
 import com.airbnb.epoxy.EpoxyController
 import com.airbnb.epoxy.carousel
+import com.airbnb.epoxy.group
+import com.seanghay.starbucksdrinks.R
 import com.seanghay.starbucksdrinks.data.ProductItem
 import java.util.concurrent.CopyOnWriteArrayList
 
@@ -55,10 +57,14 @@ class RecommendedController : EpoxyController(
                 value("Featured Drinks")
             }
 
-            carousel {
-                id("carousel")
-                models(_featuredModels)
-                numViewsToShowOnScreen(2.1f)
+            group {
+                id("group:carousel")
+                layout(R.layout.component_layout_nested_scrollable_host)
+                carousel {
+                    id("carousel")
+                    models(_featuredModels)
+                    numViewsToShowOnScreen(2.1f)
+                }
             }
 
         } else loaderModelView { id("featured:loader") }

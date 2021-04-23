@@ -5,49 +5,30 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import com.seanghay.resultof.onSuccess
+import com.google.android.material.tabs.TabLayoutMediator
 import com.seanghay.starbucksdrinks.databinding.FragmentRecommendedBinding
-import com.seanghay.starbucksdrinks.epoxy.RecommendedController
 
-class RecommendedFragment : Fragment() {
+
+class RecommendedFragment: Fragment() {
 
     private var _binding: FragmentRecommendedBinding? = null
     private val binding: FragmentRecommendedBinding get() = _binding!!
-    private val viewModel: RecommendedViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         _binding = FragmentRecommendedBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val controller = RecommendedController()
-        binding.epoxyRecyclerView.setController(controller)
-
-        viewModel.featuredProducts.observe(viewLifecycleOwner) { result ->
-            result.onSuccess { featuredProducts ->
-                controller.submitFeaturedProducts(featuredProducts)
-            }
-        }
-
-        viewModel.popularDrinks.observe(viewLifecycleOwner) {
-            it.onSuccess(controller::submitPopularDrinks)
-        }
-
-        viewModel.signatureDrinks.observe(viewLifecycleOwner) {
-            it.onSuccess(controller::submitSignatureDrinks)
-        }
-
-        viewModel.allProducts.observe(viewLifecycleOwner) {
-            it.onSuccess(controller::submitAll)
-        }
-
+        val adapter = RecommendedStateAdapter(this)
+        binding.viewPager2.adapter = adapter
+        TabLayoutMediator(binding.tabLayout, binding.viewPager2) { tab, position ->
+            tab.text = "Item $position"
+        }.attach()
     }
 
     override fun onDestroyView() {
@@ -55,9 +36,7 @@ class RecommendedFragment : Fragment() {
         _binding = null
     }
 
-
     companion object {
-        @JvmStatic
         fun newInstance(): RecommendedFragment {
             return RecommendedFragment()
         }

@@ -194,11 +194,17 @@ class RecommendedController : EpoxyController(
                         id("all:carousel:overline:${chunked.index}")
                         value("Related Products")
                     }
-                    carousel {
-                        id("all:carousel:${chunked.index}")
-                        models(chuckedModels)
-                        numViewsToShowOnScreen(3.2f)
+
+                    group {
+                        id("group:all:carousel:${chunked.index}")
+                        layout(R.layout.component_layout_nested_scrollable_host)
+                        carousel {
+                            id("all:carousel:${chunked.index}")
+                            models(chuckedModels)
+                            numViewsToShowOnScreen(3.2f)
+                        }
                     }
+
                 }
 
 

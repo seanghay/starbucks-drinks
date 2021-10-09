@@ -1,5 +1,8 @@
-on: push
-
+on: 
+  push:
+    tags:
+    - '*'
+    
 jobs:
   build_android:
     runs-on: ubuntu-latest
@@ -21,3 +24,9 @@ jobs:
       with:
         name: app-debug.apk
         path: app/build/outputs/apk/debug/app-debug.apk
+        
+    - uses: ncipollo/release-action@v1
+      with:
+        artifacts: "app/build/outputs/apk/debug/app-debug.apk"
+        body: "Debug APK"
+        token: ${{ secrets.GITHUB_TOKEN }}
